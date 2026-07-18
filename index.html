@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Alex Eze — Platform Engineer & Creator of Orkestra</title>
+<meta name="description" content="Alex Eze is a Platform Engineer and the creator of Orkestra, the first declarative Kubernetes operator runtime." />
+<link rel="icon" type="image/jpeg" href="images/profile.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0c0c0f;
+    --surface:  #18181b;
+    --border:   #27272a;
+    --subtle:   #3f3f46;
+    --muted:    #71717a;
+    --body:     #a1a1aa;
+    --text:     #e4e4e7;
+    --white:    #fafafa;
+    --violet:   #a78bfa;
+    --violet-dim: #7c3aed;
+    --violet-bg: #1a1025;
+    --green:    #4ade80;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--body);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--violet); text-decoration: none; transition: color 0.15s; }
+  a:hover { color: var(--white); }
+
+  /* ── Nav ─────────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: rgba(12, 12, 15, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.875rem;
+    color: var(--violet);
+    font-weight: 500;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.875rem;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── Layout ──────────────────────────────────────────── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  section {
+    padding: 6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  /* ── Hero ────────────────────────────────────────────── */
+  #hero {
+    padding-top: 10rem;
+    padding-bottom: 7rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.5rem;
+  }
+
+  .hero-avatar {
+    flex-shrink: 0;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    object-fit: cover;
+    margin-top: 0.25rem;
+  }
+
+  .hero-text { flex: 1; min-width: 0; }
+
+  @media (max-width: 480px) {
+    .hero-inner { flex-direction: column; gap: 1.5rem; }
+    .hero-avatar { width: 80px; height: 80px; }
+  }
+
+  .terminal-line {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.875rem;
+    border-radius: 6px;
+    margin-bottom: 2.5rem;
+    max-width: 100%;
+  }
+
+  .terminal-prompt { color: var(--green); }
+  .terminal-cmd { color: var(--text); }
+  .terminal-flag { color: var(--violet); }
+
+  .hero-name {
+    font-family: var(--mono);
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name span {
+    color: var(--violet);
+  }
+
+  .hero-title {
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-bio {
+    font-size: 1.125rem;
+    color: var(--body);
+    max-width: 580px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-bio strong { color: var(--text); font-weight: 500; }
+
+  .hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--violet);
+    color: #0c0c0f;
+    border-color: var(--violet);
+  }
+  .btn-primary:hover { background: #c4b5fd; color: #0c0c0f; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--subtle); background: var(--surface); color: var(--white); }
+
+  /* ── Section headers ─────────────────────────────────── */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .section-desc {
+    color: var(--body);
+    max-width: 540px;
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  /* ── Orkestra section ────────────────────────────────── */
+  #orkestra { background: var(--bg); }
+
+  .ork-card {
+    background: var(--violet-bg);
+    border: 1px solid #3b1f6b;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .ork-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .ork-badge {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--violet);
+    background: rgba(167, 139, 250, 0.1);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  .ork-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+
+  .ork-card p {
+    color: var(--body);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .ork-card p strong { color: var(--text); font-weight: 500; }
+
+  .ork-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+
+  .ork-link {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--violet);
+    background: rgba(167, 139, 250, 0.08);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    transition: all 0.15s;
+  }
+  .ork-link:hover { background: rgba(167, 139, 250, 0.15); color: #c4b5fd; }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+  }
+
+  .stat-value {
+    font-family: var(--mono);
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: var(--violet);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* ── Capabilities ────────────────────────────────────── */
+  .capability-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .cap-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: border-color 0.15s;
+  }
+  .cap-card:hover { border-color: var(--subtle); }
+
+  .cap-icon {
+    font-size: 1.375rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .cap-title {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    font-size: 0.9375rem;
+  }
+
+  .cap-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── Experience ──────────────────────────────────────── */
+  .role {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .role:last-child { border-bottom: none; }
+
+  .role-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .role-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .role-period {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .role-company {
+    font-size: 0.9rem;
+    color: var(--violet);
+    margin-bottom: 1rem;
+  }
+
+  .role-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .role-bullets li {
+    font-size: 0.9rem;
+    color: var(--body);
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.65;
+  }
+
+  .role-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--subtle);
+    font-size: 0.8rem;
+    top: 0.15em;
+  }
+
+  .role-bullets li strong { color: var(--text); font-weight: 500; }
+
+  .more-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin-top: 2rem;
+  }
+  .more-link:hover { color: var(--violet); }
+
+  /* ── Skills ──────────────────────────────────────────── */
+  .skill-group {
+    margin-bottom: 2.5rem;
+  }
+
+  .skill-group:last-child { margin-bottom: 0; }
+
+  .skill-group-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.875rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+  }
+
+  .skill-tag.primary {
+    color: var(--violet);
+    background: rgba(167, 139, 250, 0.07);
+    border-color: rgba(167, 139, 250, 0.2);
+  }
+
+  /* ── Contact / Footer ────────────────────────────────── */
+  #contact { text-align: center; border-bottom: none; }
+
+  .contact-email {
+    font-family: var(--mono);
+    font-size: 1.125rem;
+    color: var(--violet);
+    display: inline-block;
+    margin-bottom: 1.5rem;
+  }
+  .contact-email:hover { color: var(--white); }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  footer {
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--subtle);
+  }
+
+  footer a { color: var(--subtle); }
+  footer a:hover { color: var(--muted); }
+
+  /* ── Responsive ──────────────────────────────────────── */
+  @media (max-width: 640px) {
+    nav { padding: 1rem; }
+    .nav-links { gap: 1.25rem; }
+    section { padding: 4rem 0; }
+    #hero { padding-top: 7rem; }
+    .role-header { flex-direction: column; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-links { display: none; }
+  }
+
+  /* ── Animations ──────────────────────────────────────── */
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">aeze.orkspace.io</span>
+  <ul class="nav-links">
+    <li><a href="#orkestra">Orkestra</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="container">
+    <div class="terminal-line fade-in">
+      <span class="terminal-prompt">$</span>
+      <span class="terminal-cmd">ork run</span>
+      <span class="terminal-flag">postgres:v1.0.0</span>
+      <span class="terminal-flag">--dev</span>
+      <span class="terminal-flag">--apply-cr</span>
+    </div>
+
+    <div class="hero-inner">
+      <img
+        src="images/profile.jpg"
+        alt="Alex Eze"
+        class="hero-avatar fade-in"
+      />
+      <div class="hero-text">
+        <h1 class="hero-name fade-in">
+          Alex<span>.</span>Eze
+        </h1>
+        <p class="hero-title fade-in">// Platform Engineer · Creator of Orkestra</p>
+
+        <p class="hero-bio fade-in">
+          I build infrastructure and platforms for Kubernetes-native teams —
+          and I created <strong>Orkestra</strong>, the first declarative runtime
+          for Kubernetes operators. Operators as declared behaviors.
+          No Go required. Your CRD is enough.
+        </p>
+
+        <div class="hero-links fade-in">
+          <a href="#orkestra" class="btn btn-primary">See Orkestra</a>
+          <a href="https://github.com/orkspace/orkestra" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/alexeze/" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://cc.orkestra.sh" class="btn btn-ghost" target="_blank" rel="noopener">Live Demo ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Orkestra ───────────────────────────────────────────── -->
+<section id="orkestra">
+  <div class="container">
+    <p class="section-label fade-in">Open Source Project</p>
+    <h2 class="section-title fade-in">Orkestra</h2>
+    <p class="section-desc fade-in">
+      The first declarative operator runtime for Kubernetes.
+      Built from scratch over three years without a template.
+      Shipped, proven in production, and open source.
+    </p>
+
+    <div class="ork-card fade-in">
+      <div class="ork-card-header">
+        <span class="ork-badge">v0.7.11 · Early Access</span>
+      </div>
+      <h3>Operators are behaviors, not programs.</h3>
+      <p>
+        Every Kubernetes operator rebuilds the same infrastructure: informers, workqueues,
+        leader election, RBAC, webhooks, status management. That infrastructure is not
+        the reason the operator exists — it's the cost of entry.
+      </p>
+      <p>
+        Orkestra removes the cost. You declare what your operator does in a
+        <strong>Katalog</strong>. The runtime handles everything else — reconciliation,
+        drift correction, autoscaling, deletion protection, a live control center.
+        <strong>No Go code required. Your CRD is enough.</strong>
+      </p>
+      <div class="ork-links">
+        <a href="https://orkestra.sh" class="ork-link" target="_blank" rel="noopener">orkestra.sh ↗</a>
+        <a href="https://github.com/orkspace/orkestra" class="ork-link" target="_blank" rel="noopener">github.com/orkspace/orkestra ↗</a>
+        <a href="https://cc.orkestra.sh" class="ork-link" target="_blank" rel="noopener">Live Control Center ↗</a>
+        <a href="https://orkestra.sh/publications/declarative-operators-whitepaper" class="ork-link" target="_blank" rel="noopener">Whitepaper ↗</a>
+      </div>
+    </div>
+
+    <div class="stat-row fade-in">
+      <div class="stat">
+        <span class="stat-value">79 MB</span>
+        <span class="stat-label">RSS for 10-CRD runtime</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">0.0%</span>
+        <span class="stat-label">Error rate in production</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">13k+</span>
+        <span class="stat-label">Resources managed</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">Apache 2.0</span>
+        <span class="stat-label">License</span>
+      </div>
+    </div>
+
+    <div class="capability-grid" style="margin-top: 2.5rem;">
+      <div class="cap-card fade-in">
+        <span class="cap-icon">⚡</span>
+        <div class="cap-title">Zero Go required</div>
+        <div class="cap-desc">Five reconcile paths — declarative, hybrid, hooks, constructor, WASM-ready. Choose the right level of control.</div>
+      </div>
+      <div class="cap-card fade-in">
+        <span class="cap-icon">🔒</span>
+        <div class="cap-title">Security built in</div>
+        <div class="cap-desc">Deletion protection, namespace isolation, admission webhooks, and RBAC generation — declared in the Katalog.</div>
+      </div>
+      <div class="cap-card fade-in">
+        <span class="cap-icon">📦</span>
+        <div class="cap-title">OCI-native distribution</div>
+        <div class="cap-desc">Operator patterns distributed as OCI artifacts with E2E proof of correctness baked into the manifest.</div>
+      </div>
+      <div class="cap-card fade-in">
+        <span class="cap-icon">🧪</span>
+        <div class="cap-title">Declarative testing</div>
+        <div class="cap-desc">ork simulate runs reconcilers in memory. ork e2e runs against real clusters. Both ship with every example.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Experience ─────────────────────────────────────────── -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label fade-in">Professional Experience</p>
+    <h2 class="section-title fade-in">Where I've worked</h2>
+
+    <div class="role fade-in">
+      <div class="role-header">
+        <span class="role-title">Infrastructure Engineer</span>
+        <span class="role-period">2025 · Present</span>
+      </div>
+      <div class="role-company">GOSH NHS · London, UK</div>
+      <ul class="role-bullets">
+        <li>Designed and deployed <strong>hybrid Kubernetes clusters</strong> for ML workloads across AWS and on-premises infrastructure.</li>
+        <li>Built <strong>MLOps pipelines on AWS SageMaker</strong> to automate model lifecycle management.</li>
+        <li>Architected multi-environment agentic workflows using <strong>AWS Strands and Bedrock</strong>.</li>
+        <li>Tuned resource allocation and networking for optimised AI/NLP workloads across hybrid environments.</li>
+      </ul>
+    </div>
+
+    <div class="role fade-in">
+      <div class="role-header">
+        <span class="role-title">Lead Platform Engineer</span>
+        <span class="role-period">2025 · Consultant</span>
+      </div>
+      <div class="role-company">OnDgo</div>
+      <ul class="role-bullets">
+        <li>Rebuilt GCP infrastructure from scratch using <strong>Terraform, Vault, and ArgoCD</strong> with zero downtime migration.</li>
+        <li>Reduced public IP usage by <strong>85%</strong> via secure ingress consolidation and private cluster networking.</li>
+        <li>Enabled GitOps across multi-cluster Kubernetes with centralised monitoring, progressive delivery, and dynamic secret injection.</li>
+        <li>Led platform hardening: RBAC, workload identity, disaster recovery, and event-driven autoscaling.</li>
+      </ul>
+    </div>
+
+    <div class="role fade-in">
+      <div class="role-header">
+        <span class="role-title">Lead DevOps Engineer</span>
+        <span class="role-period">2024</span>
+      </div>
+      <div class="role-company">Interswitch Group</div>
+      <ul class="role-bullets">
+        <li>Introduced <strong>DevOps culture and practices</strong> across engineering teams for the first time.</li>
+        <li>Automated infrastructure provisioning and deployments across 20+ applications.</li>
+        <li>Cut release cycles by <strong>85%</strong> and achieved annual cost savings of $10K+.</li>
+      </ul>
+    </div>
+
+    <div class="role fade-in">
+      <div class="role-header">
+        <span class="role-title">Senior DevOps Engineer</span>
+        <span class="role-period">2022 – 2024</span>
+      </div>
+      <div class="role-company">Andela</div>
+      <ul class="role-bullets">
+        <li><strong>Founded the DevOps/Platform team</strong>, building cloud architecture and CI/CD from the ground up.</li>
+        <li>Enabled infrastructure to handle <strong>20× traffic growth</strong> through autoscaling and container orchestration.</li>
+        <li>Reduced release times by <strong>75%</strong>. Mentored junior engineers, boosting team productivity by 80%.</li>
+      </ul>
+    </div>
+
+    <a href="https://www.linkedin.com/in/alexeze/" class="more-link" target="_blank" rel="noopener">
+      Full experience on LinkedIn →
+    </a>
+  </div>
+</section>
+
+<!-- ── Skills ─────────────────────────────────────────────── -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label fade-in">Technical Skills</p>
+    <h2 class="section-title fade-in">What I work with</h2>
+
+    <div class="skill-group fade-in">
+      <p class="skill-group-label">Expert — daily use, deep knowledge</p>
+      <div class="skill-tags">
+        <span class="skill-tag primary">Kubernetes</span>
+        <span class="skill-tag primary">Go</span>
+        <span class="skill-tag primary">Orkestra</span>
+        <span class="skill-tag primary">Terraform</span>
+        <span class="skill-tag primary">ArgoCD</span>
+        <span class="skill-tag primary">GitHub Actions</span>
+        <span class="skill-tag primary">Helm</span>
+        <span class="skill-tag primary">Prometheus + Grafana</span>
+        <span class="skill-tag primary">Vault</span>
+        <span class="skill-tag primary">AWS</span>
+        <span class="skill-tag primary">GCP</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <p class="skill-group-label">Proficient — regular use</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Flux CD</span>
+        <span class="skill-tag">Istio</span>
+        <span class="skill-tag">Kyverno</span>
+        <span class="skill-tag">Velero</span>
+        <span class="skill-tag">External Secrets Operator</span>
+        <span class="skill-tag">Argo Rollouts</span>
+        <span class="skill-tag">Azure</span>
+        <span class="skill-tag">Ansible</span>
+        <span class="skill-tag">MLflow</span>
+        <span class="skill-tag">SageMaker</span>
+        <span class="skill-tag">Kafka</span>
+        <span class="skill-tag">Redis</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Bash</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <p class="skill-group-label">Familiar — used in projects</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Crossplane</span>
+        <span class="skill-tag">Falco</span>
+        <span class="skill-tag">Chaos Mesh</span>
+        <span class="skill-tag">KubeFlow</span>
+        <span class="skill-tag">Rust</span>
+        <span class="skill-tag">OpenTofu</span>
+        <span class="skill-tag">Keycloak</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Education ──────────────────────────────────────────── -->
+<section id="education" style="padding: 4rem 0;">
+  <div class="container">
+    <p class="section-label fade-in">Education & Certifications</p>
+    <div class="skill-group fade-in" style="margin-bottom: 0;">
+      <div class="skill-tags">
+        <span class="skill-tag">BSc — University of Benin</span>
+        <span class="skill-tag">Kubernetes for Developers — Linux Foundation</span>
+        <span class="skill-tag">Lean Six Sigma Green Belt</span>
+        <span class="skill-tag">CS50 — Harvard University</span>
+        <span class="skill-tag">DevOps & Cloud Engineering — IReign</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label fade-in">Contact</p>
+    <h2 class="section-title fade-in">Get in touch</h2>
+    <p class="section-desc fade-in" style="margin: 0 auto 1.5rem; text-align: center;">
+      Open to platform engineering roles and Orkestra collaborations.
+    </p>
+    <a href="mailto:ialexeze@outlook.com" class="contact-email fade-in">ialexeze@outlook.com</a>
+    <div class="contact-links fade-in">
+      <a href="https://www.linkedin.com/in/alexeze/" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/orkspace/orkestra" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://orkestra.sh" class="btn btn-ghost" target="_blank" rel="noopener">orkestra.sh</a>
+      <a href="https://cc.orkestra.sh" class="btn btn-primary" target="_blank" rel="noopener">Live Demo ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Alex Eze · London, UK ·
+    <a href="https://github.com/orkspace/orkestra" target="_blank" rel="noopener">github.com/orkspace/orkestra</a>
+    · Built with care, deployed on Cloudflare Pages
+  </p>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
