@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Alex Eze — Platform Engineer & Creator of Orkestra</title>
-<meta name="description" content="Alex Eze is a Platform Engineer and the creator of Orkestra, the first declarative Kubernetes operator runtime." />
+<title>Alex Eze — Platform Engineer & Creator of Inrun</title>
+<meta name="description" content="Alex Eze is a Platform Engineer and creator of Inrun, a runtime that separates Kubernetes reconciliation behaviour from the infrastructure that executes it." />
 <link rel="icon" type="image/jpeg" href="images/profile.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -233,10 +233,10 @@
     line-height: 1.7;
   }
 
-  /* ── Orkestra section ────────────────────────────────── */
-  #orkestra { background: var(--bg); }
+  /* ── Inrun section ───────────────────────────────────── */
+  #inrun { background: var(--bg); }
 
-  .ork-card {
+  .project-card {
     background: var(--violet-bg);
     border: 1px solid #3b1f6b;
     border-radius: 12px;
@@ -244,14 +244,14 @@
     margin-bottom: 2rem;
   }
 
-  .ork-card-header {
+  .project-card-header {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 1rem;
   }
 
-  .ork-badge {
+  .project-badge {
     font-family: var(--mono);
     font-size: 0.7rem;
     font-weight: 500;
@@ -264,28 +264,28 @@
     border-radius: 4px;
   }
 
-  .ork-card h3 {
+  .project-card h3 {
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--white);
     letter-spacing: -0.01em;
   }
 
-  .ork-card p {
+  .project-card p {
     color: var(--body);
     line-height: 1.7;
     margin-bottom: 1.25rem;
   }
 
-  .ork-card p strong { color: var(--text); font-weight: 500; }
+  .project-card p strong { color: var(--text); font-weight: 500; }
 
-  .ork-links {
+  .project-links {
     display: flex;
     flex-wrap: wrap;
     gap: 0.625rem;
   }
 
-  .ork-link {
+  .project-link {
     font-family: var(--mono);
     font-size: 0.8rem;
     color: var(--violet);
@@ -295,7 +295,7 @@
     border-radius: 4px;
     transition: all 0.15s;
   }
-  .ork-link:hover { background: rgba(167, 139, 250, 0.15); color: #c4b5fd; }
+  .project-link:hover { background: rgba(167, 139, 250, 0.15); color: #c4b5fd; }
 
   .stat-row {
     display: grid;
@@ -534,7 +534,7 @@
 <nav>
   <span class="nav-logo">aeze.orkspace.io</span>
   <ul class="nav-links">
-    <li><a href="#orkestra">Orkestra</a></li>
+    <li><a href="#inrun">Inrun</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -546,10 +546,8 @@
   <div class="container">
     <div class="terminal-line fade-in">
       <span class="terminal-prompt">$</span>
-      <span class="terminal-cmd">ork run</span>
-      <span class="terminal-flag">postgres:v1.0.0</span>
-      <span class="terminal-flag">--dev</span>
-      <span class="terminal-flag">--apply-cr</span>
+      <span class="terminal-cmd">inrun inspect</span>
+      <span class="terminal-flag">platform-database:v2.1.0</span>
     </div>
 
     <div class="hero-inner">
@@ -562,73 +560,72 @@
         <h1 class="hero-name fade-in">
           Alex<span>.</span>Eze
         </h1>
-        <p class="hero-title fade-in">// Platform Engineer · Creator of Orkestra</p>
+        <p class="hero-title fade-in">// Platform Engineer · Creator of Inrun</p>
 
         <p class="hero-bio fade-in">
           I build infrastructure and platforms for Kubernetes-native teams —
-          and I created <strong>Orkestra</strong>, the first declarative runtime
-          for Kubernetes operators. Operators as declared behaviors.
-          No Go required. Your CRD is enough.
+          and I'm building <strong>Inrun</strong>, a runtime that separates
+          Kubernetes reconciliation behaviour from the infrastructure that executes it.
+          Bring your intent and your logic; Inrun manages the reconciliation machinery.
         </p>
 
         <div class="hero-links fade-in">
-          <a href="#orkestra" class="btn btn-primary">See Orkestra</a>
-          <a href="https://github.com/orkspace/orkestra" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+          <a href="#inrun" class="btn btn-primary">See Inrun</a>
+          <a href="https://github.com/intentd/inrun" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
           <a href="https://www.linkedin.com/in/alexeze/" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="https://cc.orkestra.sh" class="btn btn-ghost" target="_blank" rel="noopener">Live Demo ↗</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Orkestra ───────────────────────────────────────────── -->
-<section id="orkestra">
+<!-- ── Inrun ───────────────────────────────────────────────── -->
+<section id="inrun">
   <div class="container">
     <p class="section-label fade-in">Open Source Project</p>
-    <h2 class="section-title fade-in">Orkestra</h2>
+    <h2 class="section-title fade-in">Inrun</h2>
     <p class="section-desc fade-in">
-      The first declarative operator runtime for Kubernetes.
-      Built from scratch over three years without a template.
-      Shipped, proven in production, and open source.
+      A Kubernetes reconciliation runtime built around one idea: separate
+      application-specific behaviour from the infrastructure required to execute it.
     </p>
 
-    <div class="ork-card fade-in">
-      <div class="ork-card-header">
-        <span class="ork-badge">v0.7.11 · Early Access</span>
+    <div class="project-card fade-in">
+      <div class="project-card-header">
+        <span class="project-badge">Pre-release · Targeting v0.1.0</span>
       </div>
-      <h3>Operators are behaviors, not programs.</h3>
+      <h3>Separate reconciliation behaviour from operator infrastructure.</h3>
       <p>
-        Every Kubernetes operator rebuilds the same infrastructure: informers, workqueues,
-        leader election, RBAC, webhooks, status management. That infrastructure is not
-        the reason the operator exists — it's the cost of entry.
+        Kubernetes already provides a battle-tested reconciliation model, but using it
+        traditionally means building and maintaining controllers, watches, queues, retries,
+        status handling, and cleanup around application-specific logic. That machinery is
+        often repeated even when the decision being made is completely different.
       </p>
       <p>
-        Orkestra removes the cost. You declare what your operator does in a
-        <strong>Katalog</strong>. The runtime handles everything else — reconciliation,
-        drift correction, autoscaling, deletion protection, a live control center.
-        <strong>No Go code required. Your CRD is enough.</strong>
+        Inrun makes the machinery reusable. Supply an intent and implement the decision
+        using declarative rules, a remote HTTP endpoint, or typed Go reconciliation.
+        Inrun prepares the request, executes the behaviour, applies permitted resources,
+        and manages the reconciliation lifecycle. The caller-facing intent can remain
+        separate from the internal CRD representation.
       </p>
-      <div class="ork-links">
-        <a href="https://orkestra.sh" class="ork-link" target="_blank" rel="noopener">orkestra.sh ↗</a>
-        <a href="https://github.com/orkspace/orkestra" class="ork-link" target="_blank" rel="noopener">github.com/orkspace/orkestra ↗</a>
-        <a href="https://cc.orkestra.sh" class="ork-link" target="_blank" rel="noopener">Live Control Center ↗</a>
-        <a href="https://orkestra.sh/publications/declarative-operators-whitepaper" class="ork-link" target="_blank" rel="noopener">Whitepaper ↗</a>
+      <div class="project-links">
+        <a href="https://github.com/intentd/inrun" class="project-link" target="_blank" rel="noopener">github.com/intentd/inrun ↗</a>
+        <span class="project-link">Apache 2.0</span>
+        <span class="project-link">Target release: v0.1.0</span>
       </div>
     </div>
 
     <div class="stat-row fade-in">
       <div class="stat">
-        <span class="stat-value">79 MB</span>
-        <span class="stat-label">RSS for 10-CRD runtime</span>
+        <span class="stat-value">Declarative</span>
+        <span class="stat-label">Reconciliation behaviour</span>
       </div>
       <div class="stat">
-        <span class="stat-value">0.0%</span>
-        <span class="stat-label">Error rate in production</span>
+        <span class="stat-value">Remote</span>
+        <span class="stat-label">HTTP-based reconciliation</span>
       </div>
       <div class="stat">
-        <span class="stat-value">13k+</span>
-        <span class="stat-label">Resources managed</span>
+        <span class="stat-value">Typed Go</span>
+        <span class="stat-label">Full reconciler control</span>
       </div>
       <div class="stat">
         <span class="stat-value">Apache 2.0</span>
@@ -639,23 +636,41 @@
     <div class="capability-grid" style="margin-top: 2.5rem;">
       <div class="cap-card fade-in">
         <span class="cap-icon">⚡</span>
-        <div class="cap-title">Zero Go required</div>
-        <div class="cap-desc">Five reconcile paths — declarative, hybrid, hooks, constructor, controller-runtime Reconcile(). Choose the right level of control.</div>
+        <div class="cap-title">Choose your reconciliation model</div>
+        <div class="cap-desc">Use declarative behaviour, a remote HTTP reconciler in your language of choice, or a typed Go reconciler. Keep application decisions separate from shared runtime machinery.</div>
       </div>
       <div class="cap-card fade-in">
         <span class="cap-icon">🔒</span>
-        <div class="cap-title">Security built in</div>
-        <div class="cap-desc">Deletion protection, namespace isolation, admission webhooks, and RBAC generation — declared in the Katalog.</div>
+        <div class="cap-title">Runtime-owned lifecycle</div>
+        <div class="cap-desc">Inrun owns the informers, queues, retries, leader election, status updates, resource application, and cleanup surrounding reconciliation.</div>
       </div>
       <div class="cap-card fade-in">
         <span class="cap-icon">📦</span>
-        <div class="cap-title">OCI-native distribution</div>
-        <div class="cap-desc">Operator patterns distributed as OCI artifacts with E2E proof of correctness baked into the manifest.</div>
+        <div class="cap-title">Intent and representation</div>
+        <div class="cap-desc">Keep caller-facing intent separate from CRD storage shape, with catalog-driven field mapping and schema migration support.</div>
       </div>
       <div class="cap-card fade-in">
         <span class="cap-icon">🧪</span>
-        <div class="cap-title">Declarative testing</div>
-        <div class="cap-desc">ork simulate runs reconcilers in memory. ork e2e runs against real clusters. Both ship with every example.</div>
+        <div class="cap-title">OCI-native behaviour artifacts</div>
+        <div class="cap-desc">Package and distribute behaviour through OCI, with artifact metadata and verification as part of the development and delivery workflow.</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" style="margin-top: 2rem;">
+      <div class="project-card-header">
+        <span class="project-badge">Related library · KEL</span>
+      </div>
+      <h3>Kubernetes Expression Library</h3>
+      <p>
+        <strong>KEL</strong> is the reusable expression-function layer behind Inrun's
+        templates: pure, nil-safe helpers for inspecting Kubernetes objects, working
+        with fields and collections, validating values, and expressing common operational logic.
+        The aim is to make that Kubernetes knowledge useful outside the Inrun runtime too.
+      </p>
+      <div class="project-links">
+        <span class="project-link">Go library</span>
+        <span class="project-link">Template functions</span>
+        <span class="project-link">Kubernetes-aware expressions</span>
       </div>
     </div>
   </div>
@@ -752,7 +767,8 @@
       <div class="skill-tags">
         <span class="skill-tag primary">Kubernetes</span>
         <span class="skill-tag primary">Go</span>
-        <span class="skill-tag primary">Orkestra</span>
+        <span class="skill-tag primary">Inrun</span>
+        <span class="skill-tag primary">KEL</span>
         <span class="skill-tag primary">Terraform</span>
         <span class="skill-tag primary">ArgoCD</span>
         <span class="skill-tag primary">GitHub Actions</span>
@@ -821,21 +837,20 @@
     <p class="section-label fade-in">Contact</p>
     <h2 class="section-title fade-in">Get in touch</h2>
     <p class="section-desc fade-in" style="margin: 0 auto 1.5rem; text-align: center;">
-      Open to platform engineering roles and Orkestra collaborations.
+      Open to platform engineering roles and collaborations around Kubernetes infrastructure and Inrun.
     </p>
     <a href="mailto:ialexeze@gmail.com" class="contact-email fade-in">ialexeze@gmail.com</a>
     <div class="contact-links fade-in">
       <a href="https://www.linkedin.com/in/alexeze/" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/orkspace/orkestra" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://orkestra.sh" class="btn btn-ghost" target="_blank" rel="noopener">orkestra.sh</a>
-      <a href="https://cc.orkestra.sh" class="btn btn-primary" target="_blank" rel="noopener">Live Demo ↗</a>
+      <a href="https://github.com/intentd/inrun" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/intentd/inrun" class="btn btn-primary" target="_blank" rel="noopener">Explore Inrun ↗</a>
     </div>
   </div>
 </section>
 
 <footer>
   <p>Alex Eze · London, UK ·
-    <a href="https://github.com/orkspace/orkestra" target="_blank" rel="noopener">github.com/orkspace/orkestra</a>
+    <a href="https://github.com/intentd/inrun" target="_blank" rel="noopener">github.com/intentd/inrun</a>
     · Built with care, deployed on Cloudflare Pages
   </p>
 </footer>
