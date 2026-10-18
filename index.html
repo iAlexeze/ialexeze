@@ -658,19 +658,21 @@
 
     <div class="project-card fade-in" style="margin-top: 2rem;">
       <div class="project-card-header">
-        <span class="project-badge">Related library · KEL</span>
+        <span class="project-badge">Open Source Library · KEL</span>
       </div>
       <h3>Kubernetes Expression Library</h3>
       <p>
-        <strong>KEL</strong> is the reusable expression-function layer behind Inrun's
-        templates: pure, nil-safe helpers for inspecting Kubernetes objects, working
-        with fields and collections, validating values, and expressing common operational logic.
-        The aim is to make that Kubernetes knowledge useful outside the Inrun runtime too.
+        <strong>KEL</strong> provides functions that know Kubernetes, for Go templates
+        and any engine that can call Go functions. It brings reusable reasoning about
+        live Kubernetes objects into one library, alongside general helpers for values
+        such as strings, numbers, time, and versions. Use the same functions in a
+        controller, admission check, test assertion, CLI, or Inrun — without making
+        KEL depend on Inrun.
       </p>
       <div class="project-links">
+        <a href="https://github.com/intentd/kel" class="project-link" target="_blank" rel="noopener">github.com/intentd/kel ↗</a>
         <span class="project-link">Go library</span>
-        <span class="project-link">Template functions</span>
-        <span class="project-link">Kubernetes-aware expressions</span>
+        <span class="project-link">Kubernetes-aware functions</span>
       </div>
     </div>
   </div>
