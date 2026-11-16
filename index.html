@@ -591,7 +591,7 @@
 
     <div class="project-card fade-in">
       <div class="project-card-header">
-        <span class="project-badge">Pre-release · Targeting v0.1.0</span>
+        <span class="project-badge">Open Source · <span data-repo="intentd/inrun">v0.1.0</span></span>
       </div>
       <h3>Separate reconciliation behaviour from operator infrastructure.</h3>
       <p>
@@ -658,7 +658,7 @@
 
     <div class="project-card fade-in" style="margin-top: 2rem;">
       <div class="project-card-header">
-        <span class="project-badge">Open Source Library · KEL</span>
+        <span class="project-badge">Open Source Library · KEL <span data-repo="intentd/kel"></span></span>
       </div>
       <h3>Kubernetes Expression Library</h3>
       <p>
@@ -673,6 +673,47 @@
         <a href="https://github.com/intentd/kel" class="project-link" target="_blank" rel="noopener">github.com/intentd/kel ↗</a>
         <span class="project-link">Go library</span>
         <span class="project-link">Kubernetes-aware functions</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" style="margin-top: 2rem;">
+      <div class="project-card-header">
+        <span class="project-badge">Open Source Library · kubewright <span data-repo="intentd/kubewright"></span></span>
+      </div>
+      <h3>kubewright</h3>
+      <p>
+        <strong>kubewright</strong> is the child-resource code every operator writes,
+        written once. It builds Kubernetes resources for an owner from plain Go specs,
+        sets the owner reference, and writes them with idempotent verbs that report
+        what happened, with named presets for the settings every team repeats:
+        resource sizes, probe timings, security contexts, rollout strategies. A
+        library, not a framework: no controller, no reconcile loop, and a delete
+        that leaves another owner's objects alone.
+      </p>
+      <div class="project-links">
+        <a href="https://github.com/intentd/kubewright" class="project-link" target="_blank" rel="noopener">github.com/intentd/kubewright ↗</a>
+        <span class="project-link">Go library</span>
+        <span class="project-link">Idempotent resource verbs</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" style="margin-top: 2rem;">
+      <div class="project-card-header">
+        <span class="project-badge">Open Source Tool · KOME <span data-repo="intentd/kome"></span></span>
+      </div>
+      <h3>Kubernetes Object Migration Engine</h3>
+      <p>
+        <strong>KOME</strong> is Alembic for Kubernetes objects. Custom resources outlive
+        their schemas: a field gets renamed, a value becomes a structure, a kind moves.
+        KOME migrates the stored objects with <strong>up</strong>, undoes it with
+        <strong>down</strong>, and makes it final with <strong>clean</strong>, after rehearsing
+        every migration end to end in a throwaway cluster. The record lives on each
+        object, and a change another writer made is never overwritten.
+      </p>
+      <div class="project-links">
+        <a href="https://github.com/intentd/kome" class="project-link" target="_blank" rel="noopener">github.com/intentd/kome ↗</a>
+        <span class="project-link">Go CLI and library</span>
+        <span class="project-link">Custom resource migrations</span>
       </div>
     </div>
   </div>
@@ -771,6 +812,8 @@
         <span class="skill-tag primary">Go</span>
         <span class="skill-tag primary">Inrun</span>
         <span class="skill-tag primary">KEL</span>
+        <span class="skill-tag primary">KOME</span>
+        <span class="skill-tag primary">kubewright</span>
         <span class="skill-tag primary">Terraform</span>
         <span class="skill-tag primary">ArgoCD</span>
         <span class="skill-tag primary">GitHub Actions</span>
@@ -864,6 +907,27 @@
     { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
   );
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Current version of each project: its latest GitHub release, otherwise its
+  // highest tag. Without one (or without network), the badge keeps its text.
+  const semver = t => (t.match(/\d+/g) || []).map(Number);
+  const newer = (a, b) => {
+    const x = semver(a), y = semver(b);
+    for (let i = 0; i < Math.max(x.length, y.length); i++) {
+      if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0);
+    }
+    return false;
+  };
+  const latestVersion = repo =>
+    fetch(`https://api.github.com/repos/${repo}/releases/latest`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(d => d?.tag_name || fetch(`https://api.github.com/repos/${repo}/tags?per_page=100`)
+        .then(r => (r.ok ? r.json() : []))
+        .then(tags => tags.map(t => t.name).filter(n => /^v?\d/.test(n))
+          .reduce((best, n) => (!best || newer(n, best) ? n : best), null)));
+  document.querySelectorAll('[data-repo]').forEach(el => {
+    latestVersion(el.dataset.repo).then(v => { if (v) el.textContent = v; }).catch(() => {});
+  });
 </script>
 </body>
 </html>
